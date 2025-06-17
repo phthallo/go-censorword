@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	gocensorword "github.com/pcpratheesh/go-censorword"
+	gocensorword "github.com/phthallo/go-censorword"
 	"github.com/stretchr/testify/require"
 )
 

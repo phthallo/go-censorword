@@ -1,4 +1,4 @@
-module github.com/pcpratheesh/go-censorword
+module github.com/phthallo/go-censorword
 
 go 1.18
 

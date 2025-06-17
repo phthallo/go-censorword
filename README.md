@@ -1,23 +1,23 @@
-[![Create Release](https://github.com/pcpratheesh/go-censorword/actions/workflows/release.yml/badge.svg)](https://github.com/pcpratheesh/go-censorword/actions/workflows/release.yml)
+[![Create Release](https://github.com/phthallo/go-censorword/actions/workflows/release.yml/badge.svg)](https://github.com/phthallo/go-censorword/actions/workflows/release.yml)
 
 # go-censorword
 go-censorword is a lightweight and easy-to-use tool that allows you to detect and filter out profanity words from your text-based content. Whether you're building a social media platform, a chat app, or just want to keep your comments section clean, this package can help.
 
 ## Installation
 ```sh
-    go get -u github.com/pcpratheesh/go-censorword
+    go get -u github.com/phthallo/go-censorword
 ```
 
 for previous version
 
 ```sh
-    go get -u github.com/pcpratheesh/go-censorword@v1.1.0
+    go get -u github.com/phthallo/go-censorword@v1.1.0
 ```
 
 ## Usage
 ```go
 import (
-	"github.com/pcpratheesh/go-censorword"
+	"github.com/phthallo/go-censorword"
 )
 ```
 

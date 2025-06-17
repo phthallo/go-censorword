@@ -10,7 +10,7 @@ import (
 	"unicode/utf8"
 	"slices"
 
-	"github.com/pcpratheesh/go-censorword/censor"
+	"github.com/phthallo/go-censorword/censor"
 	"golang.org/x/text/runes"
 	"golang.org/x/text/transform"
 	"golang.org/x/text/unicode/norm"
