@@ -40,6 +40,33 @@ func TestWithCustomList(t *testing.T) {
 	require.Equal(t, resultString, "bad ***")
 }
 
+func TestWhiteList(t *testing.T) {
+	var detector = gocensorword.NewDetector(
+		gocensorword.WithCustomWhiteList([]string {
+			"hell",
+		}),
+	)
+	word := "hell"
+	resultString, err := detector.CensorWord(word)
+	if err != nil {
+		panic(err)
+	}
+	require.Equal(t, resultString, "hell")
+}
+
+func TestWeakCensor(t *testing.T) {
+	var detector = gocensorword.NewDetector(
+		gocensorword.WithReplaceCheckPattern(`(?i) %s `),
+	)
+	word := "hello"
+	resultString, err := detector.CensorWord(word)
+	if err != nil {
+		panic(err)
+	}
+	require.Equal(t, resultString, "hello")
+}
+
+
 func TestBadWordFirstLetterKept(t *testing.T) {
 	var detector = gocensorword.NewDetector(
 		gocensorword.WithKeepPrefixChar(),
@@ -107,3 +134,4 @@ func TestBadWithCustomReplacePattern(t *testing.T) {
 	fmt.Println("resulr----", resultString)
 	require.Equal(t, resultString, "pass a*s f****r s****r")
 }
+

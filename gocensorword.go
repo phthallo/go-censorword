@@ -8,6 +8,7 @@ import (
 	"strings"
 	"unicode"
 	"unicode/utf8"
+	"slices"
 
 	"github.com/pcpratheesh/go-censorword/censor"
 	"golang.org/x/text/runes"
@@ -22,6 +23,8 @@ var (
 type Options func(*CensorWordDetection)
 type CensorWordDetection struct {
 	CensorList                []string
+	WhiteList				  []string
+	StrictCensor              bool
 	CensorReplaceChar         string
 	KeepPrefixChar            bool
 	KeepSuffixChar            bool
@@ -34,6 +37,7 @@ type CensorWordDetection struct {
 func NewDetector(options ...Options) *CensorWordDetection {
 	detector := &CensorWordDetection{
 		CensorList:                censor.CensorWordsList,
+		WhiteList:    			   censor.CensorWhiteList,
 		CensorReplaceChar:         censor.CensorChar,
 		KeepPrefixChar:            false,
 		KeepSuffixChar:            false,
@@ -56,6 +60,14 @@ func NewDetector(options ...Options) *CensorWordDetection {
 func WithCustomCensorList(list []string) Options {
 	return func(detector *CensorWordDetection) {
 		detector.CensorList = list
+	}
+}
+
+// WithCustomWhiteList
+// Words to exclude from the censor list
+func WithCustomWhiteList(list []string) Options {
+	return func(detector *CensorWordDetection) {
+		detector.WhiteList = list
 	}
 }
 
@@ -125,6 +137,10 @@ func (censor *CensorWordDetection) SanitizeCharacter(str string) string {
 // Censor Word
 func (censor *CensorWordDetection) CensorWord(word string) (string, error) {
 
+	if slices.Contains(censor.WhiteList, word){
+		return word, nil
+	}
+	
 	// sanitize with text normalization
 	if censor.TextNormalization {
 		word = censor.normalizeText(word)
@@ -172,7 +188,6 @@ func (censor *CensorWordDetection) CensorWord(word string) (string, error) {
 			"%s%s%s", prefix, strings.Repeat(censor.CensorReplaceChar, wordLength), suffix,
 		)
 		word = pattern.ReplaceAllString(word, replacePattern)
-
 	}
 	// join the string
 	return word, nil

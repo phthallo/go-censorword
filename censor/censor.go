@@ -1385,3 +1385,5 @@ var CensorWordsList = []string{
 	"zigabo",
 	"zipperhead",
 }
+
+var CensorWhiteList = make([]string, 0)
